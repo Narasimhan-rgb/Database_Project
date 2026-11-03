@@ -18,6 +18,18 @@ Each member has an **equal 33.33% contribution allocation** in our project prese
 
 All three members participate in SQL demonstrations, project validation, documentation review, and the YouTube presentation. The allocation should match the team's verified contributions.
 
+## Our Work
+
+**ENGAGE DB** is an end-to-end DBMS application that connects a social learning experience to a structured relational database. Our team developed and documented the following modules:
+
+- **Web application:** An educational feed where students create posts, like and save content, add comments, and follow other users. Flask processes each request and PostgreSQL stores the result.
+- **Relational database design:** Twelve core tables covering users, posts, interactions, hashtags, and reach, with primary keys, foreign keys, junction tables, and normalization to reduce redundant records.
+- **SQL analytics:** Queries using `JOIN`, `LEFT JOIN`, `GROUP BY`, `COUNT`, and subqueries to inspect post engagement, saved content, comments, and popular hashtags.
+- **Learning discovery:** Student-set goals, budget, learning mode, and interest signals support explainable recommendations. The interface displays factors behind each resource score.
+- **Testing and demonstration:** Application features, database queries, synthetic sample records, and a three-member video walkthrough support the project assessment.
+
+**Integrated workflow:** Student action → Flask API → PostgreSQL tables → SQL analytics / recommendation logic → updated web interface. Oracle provides a separate synchronized environment for SQL demonstrations.
+
 ## Five working application flows to demonstrate
 
 | Feature | UI action | Flask endpoint | PostgreSQL tables involved |
@@ -30,18 +42,27 @@ All three members participate in SQL demonstrations, project validation, documen
 
 Additional features include learning-profile updates, recommendations, engagement/trending summaries, messages, stories and database query demos. Application routes exist in the provided code; **live end-to-end tests and database screenshots must still be captured by the team**.
 
-## Implemented features — project summary
+## Project Screenshots
 
-ENGAGE DB provides a database-backed educational social platform with the following workflows:
+The images below are actual ENGAGE DB application and database captures. The budget comparison illustrates how resource rankings respond to the selected monthly budget. Screenshots alone are not a substitute for complete live database testing.
 
-- **Create posts:** Students publish learning-related content through the Flask application.
-- **Like, save, and comment:** User interactions are recorded in related PostgreSQL tables.
-- **Follow users:** The system stores follower–following relationships.
-- **Learning profiles:** Students select an exam goal, monthly budget, and preferred study mode.
-- **Explainable recommendations:** Learning opportunities are scored for goal relevance, interests, affordability, mode, and quality.
-- **Engagement analytics:** SQL joins, aggregates, and subqueries analyze posts, likes, saves, comments, and hashtags.
-
-Application screenshots and ER-design images can be included here after the corresponding files have been added to the repository by their contributors.
+<table>
+<tr>
+<td width="50%"><strong>ENGAGE homepage and social feed</strong><br><img src="screenshots/engage_home_feed.png" alt="ENGAGE homepage and social feed" width="100%"></td>
+<td width="50%"><strong>Database Studio and data exploration</strong><br><img src="screenshots/engage_studio.png" alt="Database Studio and data exploration" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><strong>Trending and engagement overview</strong><br><img src="screenshots/engage_trending.png" alt="Trending and engagement overview" width="100%"></td>
+<td width="50%"><strong>Learning and course trending analysis</strong><br><img src="screenshots/course_trending_details.png" alt="Learning and course trending analysis" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><strong>Learning recommendations — budget ₹20</strong><br><img src="screenshots/learning_profile_budget_20.png" alt="Learning recommendations — budget ₹20" width="100%"></td>
+<td width="50%"><strong>Learning recommendations — budget ₹20,00,000</strong><br><img src="screenshots/learning_profile_budget_2000000.png" alt="Learning recommendations — budget ₹20,00,000" width="100%"></td>
+</tr>
+<tr>
+<td width="50%"><strong>Database query output</strong><br><img src="screenshots/postgres_query_result_1.png" alt="Database query output" width="100%"></td>
+</tr>
+</table>
 
 ## Technology and DBMS versions
 
