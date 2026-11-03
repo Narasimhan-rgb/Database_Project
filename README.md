@@ -10,6 +10,11 @@
 ## Abstract
 ENGAGE DB is an educational social-engagement web application designed to demonstrate relational database management and explainable learning-resource discovery. Students can publish posts, like, save, comment and follow peers. The system stores relationships through primary/foreign keys and analyzes them using SQL joins, aggregates, subqueries and views. Students explicitly provide an exam goal, monthly budget and preferred learning mode; the recommendation workflow combines these declared preferences with engagement signals to rank sample educational resources. Flask provides the backend, PostgreSQL stores live data, and an optional Oracle snapshot supports SQL*Plus demonstrations. The project uses synthetic student profiles and fictional learning-provider entries. The repository includes the ER model, schema scripts, seed data, normalization evidence, assigned SQL queries, and a test plan.
 
+## Project Links
+
+- [GitHub repository](https://github.com/Narasimhan-rgb/Database_Project)
+- [YouTube demonstration](https://youtu.be/8axdOZ_n8Vw)
+
 ## Team Contributions
 
 Each member has an **equal 33.33% contribution allocation** in our project presentation. The areas below are distinct responsibilities within our shared implementation.
@@ -48,23 +53,32 @@ Additional features include learning-profile updates, recommendations, engagemen
 
 ## Project Screenshots
 
-The images below are actual ENGAGE DB application and database captures. The budget comparison illustrates how resource rankings respond to the selected monthly budget. Screenshots alone are not a substitute for complete live database testing.
+The following **11 real screenshots** show the running application, database Studio, engagement insights, learning-budget comparison, and SQL output. The images appear directly in the README; select an image to see it at full size.
 
 <table>
 <tr>
-<td width="50%"><strong>ENGAGE homepage and social feed</strong><br><img src="DBMS/ENGAGE_DB/screenshots/engage_home_feed.png" alt="ENGAGE homepage and social feed" width="100%"></td>
-<td width="50%"><strong>Database Studio and data exploration</strong><br><img src="DBMS/ENGAGE_DB/screenshots/engage_studio.png" alt="Database Studio and data exploration" width="100%"></td>
+<td width="50%" valign="top"><strong>Home feed and student posts</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/engage_home_feed.png" alt="Home feed and student posts" width="100%"/></td>
+<td width="50%" valign="top"><strong>Database Studio interface</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/engage_studio.png" alt="Database Studio interface" width="100%"/></td>
 </tr>
 <tr>
-<td width="50%"><strong>Trending and engagement overview</strong><br><img src="DBMS/ENGAGE_DB/screenshots/engage_trending.png" alt="Trending and engagement overview" width="100%"></td>
-<td width="50%"><strong>Learning and course trending analysis</strong><br><img src="DBMS/ENGAGE_DB/screenshots/course_trending_details.png" alt="Learning and course trending analysis" width="100%"></td>
+<td width="50%" valign="top"><strong>Trending and engagement analytics</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/engage_trending.png" alt="Trending and engagement analytics" width="100%"/></td>
+<td width="50%" valign="top"><strong>Learning and course engagement details</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/course_trending_details.png" alt="Learning and course engagement details" width="100%"/></td>
 </tr>
 <tr>
-<td width="50%"><strong>Learning recommendations — budget ₹20</strong><br><img src="DBMS/ENGAGE_DB/screenshots/learning_profile_budget_20.png" alt="Learning recommendations — budget ₹20" width="100%"></td>
-<td width="50%"><strong>Learning recommendations — budget ₹20,00,000</strong><br><img src="DBMS/ENGAGE_DB/screenshots/learning_profile_budget_2000000.png" alt="Learning recommendations — budget ₹20,00,000" width="100%"></td>
+<td width="50%" valign="top"><strong>Learning profile: ₹20 monthly budget</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/learning_profile_budget_20.png" alt="Learning profile: ₹20 monthly budget" width="100%"/></td>
+<td width="50%" valign="top"><strong>Learning profile: ₹20,00,000 monthly budget</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/learning_profile_budget_2000000.png" alt="Learning profile: ₹20,00,000 monthly budget" width="100%"/></td>
 </tr>
 <tr>
-<td width="50%"><strong>Database query output</strong><br><img src="DBMS/ENGAGE_DB/screenshots/postgres_query_result_1.png" alt="Database query output" width="100%"></td>
+<td width="50%" valign="top"><strong>Database query result — 1</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/postgres_query_result_1.png" alt="Database query result — 1" width="100%"/></td>
+<td width="50%" valign="top"><strong>Database query result — 2</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/Screenshot%202026-11-03%20140812.png" alt="Database query result — 2" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><strong>Database query result — 3</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/Screenshot%202026-11-03%20140821.png" alt="Database query result — 3" width="100%"/></td>
+<td width="50%" valign="top"><strong>Database query result — 4</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/Screenshot%202026-11-03%20140831.png" alt="Database query result — 4" width="100%"/></td>
+</tr>
+<tr>
+<td width="50%" valign="top"><strong>Database query result — 5</strong><br/><img src="DBMS/ENGAGE_DB/screenshots/Screenshot%202026-11-03%20140841.png" alt="Database query result — 5" width="100%"/></td>
+<td width="50%"></td>
 </tr>
 </table>
 
