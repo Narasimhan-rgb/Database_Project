@@ -3,18 +3,20 @@
 **BACSE202 Database Management Systems | Fall 2026–2027 | VIT Chennai**  
 **Faculty:** Dr. S. Geetha · **Slot:** D1 + TD1 · **Class:** CH202670101707
 
-## Project abstract (under 150 words)
+## Abstract
 ENGAGE DB is an educational social-engagement web application designed to demonstrate relational database management and explainable learning-resource discovery. Students can publish posts, like, save, comment and follow peers. The system stores relationships through primary/foreign keys and analyzes them using SQL joins, aggregates, subqueries and views. Students explicitly provide an exam goal, monthly budget and preferred learning mode; the recommendation workflow combines these declared preferences with engagement signals to rank sample educational resources. Flask provides the backend, PostgreSQL stores live data, and an optional Oracle snapshot supports SQL*Plus demonstrations. The project uses synthetic student profiles and fictional learning-provider entries. The repository includes the ER model, schema scripts, seed data, normalization evidence, assigned SQL queries, and a test plan.
 
-## Team and equal contribution plan
+## Team Contributions
 
-| Team member | Register number | Equal share | Area to demonstrate |
-|---|---|---:|---|
-| D Narasimhan | 25BCE5028 | 33.33% | Frontend/Flask integration, post and comment workflows, database connection and mirror |
-| D Shri Vishwa | 25BCE5127 | 33.33% | ER/relational design, normalization, likes/saves and referential integrity |
-| Skandhan | 25BCE5175 | 33.33% | Recommendation/analytics, follows, test cases and presentation evidence |
+Each member has an **equal 33.33% contribution allocation** in our project presentation. The areas below are distinct responsibilities within our shared implementation.
 
-The above is an **equal contribution/presentation plan**: confirm with all members and change it if actual contributions differ. All three jointly review SQL, reports, tests and the recorded demonstration. Detailed allocation: `docs/CONTRIBUTIONS.md`.
+| Team member | Register number | Contribution | Primary work |
+|:--|:--|:--:|:--|
+| **D Narasimhan** | 25BCE5028 | **33.33%** | Frontend, Flask APIs, post/comment operations, PostgreSQL and Oracle integration |
+| **D Shri Vishwa** | 25BCE5127 | **33.33%** | ER design, relational schema, normalization, integrity constraints, likes/saves SQL |
+| **Skandhan** | 25BCE5175 | **33.33%** | Engagement analytics, learning recommendations, test cases, screenshots, and presentation |
+
+All three members participate in SQL demonstrations, project validation, documentation review, and the YouTube presentation. The allocation should match the team's verified contributions.
 
 ## Five working application flows to demonstrate
 
