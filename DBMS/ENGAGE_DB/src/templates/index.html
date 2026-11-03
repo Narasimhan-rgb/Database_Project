@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ENGAGE · Student Opportunity Intelligence</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/course_studio.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <button class="brand" data-nav="home">Engage</button>
+      <nav class="main-nav">
+        <button class="nav-item active" data-nav="home"><span>⌂</span><b>Home</b></button>
+        <button class="nav-item" data-nav="explore"><span>⌕</span><b>Explore</b></button>
+        <button class="nav-item" data-action="open-create"><span>＋</span><b>Create</b></button>
+        <button class="nav-item" data-nav="activity"><span>♡</span><b>Activity</b></button>
+        <button class="nav-item" data-nav="messages"><span>✉</span><b>Messages</b></button>
+        <button class="nav-item" data-nav="profile"><span>◎</span><b>Profile</b></button>
+        <button class="nav-item" data-nav="analytics"><span>▥</span><b>Insights</b></button>
+        <button class="nav-item" data-nav="recommendations"><span>✦</span><b>For You</b></button>
+        <button class="nav-item" data-nav="data"><span>◫</span><b>Studio</b></button>
+</nav>
+      <div class="sidebar-bottom">
+        <div class="db-status-stack">
+          <div><span id="dbDot" class="status-dot"></span><span id="dbText">Application DB...</span></div>
+          <div><span id="pgDot" class="status-dot"></span><span id="pgText">PostgreSQL...</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <header class="mobile-header">
+      <button class="mobile-brand" data-nav="home">Engage</button>
+      <div class="mobile-actions">
+        <button data-action="open-create">＋</button>
+        <button data-nav="activity">♡</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="page active" id="page-home">
+        <div class="feed-column">
+          <div id="stories" class="stories"></div>
+<div id="feedIntro" class="feed-intro">Study feed · your interactions improve learning matches</div>
+          <div id="feed"></div>
+        </div>
+        <aside class="right-rail">
+          <div id="currentUserCard" class="current-user-card"></div>
+          <div class="rail-heading"><b>Learning matches</b><span>Based on goal, budget and engagement</span></div>
+          <div id="suggestions"></div>
+          <div class="rail-note">ENGAGE · Student Opportunity Intelligence · PostgreSQL</div>
+        </aside>
+      </section>
+
+      <section class="page" id="page-explore">
+        <div class="page-head">
+          <div><h1>Explore</h1><p>Discover posts, people and hashtags you may like.</p></div>
+          <div class="search-wrap">
+            <input id="searchInput" placeholder="Search users, posts, hashtags">
+            <div id="searchResults" class="search-results hidden"></div>
+          </div>
+        </div>
+        <div id="recentSearches" class="recent-searches"></div>
+        <div id="exploreGrid" class="explore-grid"></div>
+      </section>
+
+      <section class="page" id="page-activity">
+        <div class="page-head"><div><h1>Activity</h1><p>Interactions connected to your profile.</p></div></div>
+        <div id="activityList" class="panel-list"></div>
+      </section>
+
+
+<section class="page" id="page-messages">
+  <div class="page-head">
+    <div><h1>Messages</h1><p>Direct messages and user identities are stored in the same PostgreSQL database.</p></div>
+  </div>
+  <div class="messages-shell">
+    <aside class="conversation-list">
+      <div class="message-new">
+        <select id="messageUserSelect"></select>
+        <button class="soft-btn" id="startConversation">Open</button>
+      </div>
+      <div id="conversationList"></div>
+    </aside>
+    <section class="chat-panel">
+      <div id="chatHeader" class="chat-header">Choose a conversation</div>
+      <div id="chatMessages" class="chat-messages"><div class="rail-note">Messages will appear here.</div></div>
+      <form id="messageForm" class="message-form">
+        <input id="messageInput" placeholder="Message..." autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+</section>
+
+      <section class="page" id="page-profile">
+        <div id="profileHeader"></div>
+        <div class="profile-tabs"><button class="active">POSTS</button><button>SAVED</button><button>TAGGED</button></div>
+        <div id="profileGrid" class="explore-grid"></div>
+      </section>
+
+      <section class="page" id="page-analytics">
+        <div class="page-head"><div><h1>Analytics</h1><p>Live engagement metrics from the PostgreSQL relational database.</p></div></div>
+        <div id="analyticsSummary" class="stats-grid"></div>
+        <div class="analytics-grid">
+          <div class="analytics-card"><h3>Top posts</h3><div id="topPosts"></div></div>
+          <div class="analytics-card"><h3>Top hashtags</h3><div id="topHashtags"></div></div>
+          <div class="analytics-card"><h3>Comment sentiment</h3><div id="sentimentChart"></div></div>
+          <div class="analytics-card"><h3>Most followed users</h3><div id="topUsers"></div></div>
+        </div>
+      </section>
+
+
+<section class="page" id="page-recommendations">
+  <div class="page-head">
+    <div>
+      <h1>Learning Matches</h1>
+      <p>ENGAGE combines the student-selected goal and affordability preference with live likes, saves, reposts and comments to recommend useful learning options.</p>
+    </div>
+    <button class="primary-btn" id="refreshRecommendations">Refresh suggestions</button>
+  </div>
+
+  <div id="recommendationStorageNotice" class="storage-notice"></div>
+<div class="analytics-card preference-card">
+      <div class="card-title-row">
+        <div><h3>Your learning profile</h3><p class="console-subtitle">Budget is explicitly selected by the student; ENGAGE does not infer income from clicks.</p></div>
+        <div class="profile-save-box"><span id="preferencesSaveState" class="save-state">Ready to save your learning profile</span><button class="primary-btn save-profile-btn" id="savePreferences">Save Profile</button></div>
+      </div>
+      <div class="preference-grid learning-profile-grid">
+        <label>Academic stage<input id="academicStage" placeholder="Class 12" value="Class 12"></label>
+        <label>Exam goal<input id="examGoal" placeholder="JEE" value="JEE"></label>
+        <label>Maximum monthly budget (₹)<input id="maxMonthlyBudget" type="number" min="0" step="100" placeholder="1500"></label>
+        <label>Affordability preference
+          <select id="budgetPreference"><option value="affordable">Affordable first</option><option value="balanced">Balanced</option><option value="premium">Premium options okay</option></select>
+        </label>
+        <label>Preferred mode
+          <select id="preferredMode"><option value="online">Online</option><option value="offline">Offline</option><option value="hybrid">Hybrid</option></select>
+        </label>
+        <label>Topics<input id="preferredGenres" placeholder="education, guidance, technology"></label>
+        <label>Hashtags<input id="preferredHashtags" placeholder="#JEE, #StudyTips, #Coding"></label>
+        <label>Feed style
+          <select id="recommendationMode"><option value="balanced">Balanced</option><option value="social">Community</option><option value="trending">Trending</option></select>
+        </label>
+      </div>
+    </div>
+
+  <div class="suggestion-layout">
+    <div class="analytics-card">
+      <div class="card-title-row"><h3>Best learning opportunities</h3><span class="mini-label">goal + affordability + engagement</span></div>
+      <div id="recommendedResources"></div>
+    </div>
+    <div class="analytics-card">
+      <div class="card-title-row"><h3>Study posts for you</h3><span class="mini-label">engagement score</span></div>
+      <div id="recommendedPosts"></div>
+    </div>
+    <div class="analytics-card">
+      <div class="card-title-row"><h3>Learning topics</h3><span class="mini-label">hashtags</span></div>
+      <div id="recommendedHashtags"></div>
+    </div>
+    <div class="analytics-card">
+      <div class="card-title-row"><h3>Student community</h3><span class="mini-label">social layer</span></div>
+      <div id="recommendedUsers"></div>
+    </div>
+    <div class="analytics-card">
+      <div class="card-title-row"><h3>Storage design</h3><span class="mini-label">PostgreSQL</span></div>
+      <div class="storage-map">
+        <div><b>PostgreSQL core ER model</b><span>users, posts, follows, likes, saves, reposts, comments, hashtags, reach</span></div>
+        <div><b>Student intelligence layer</b><span>explicit study profile, post learning signals, resources and explainable matches</span></div>
+        <div><b>PostgreSQL application layer</b><span>preferences, recommendations, messages, stories, query history and saved SQL</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <section class="page" id="page-data">
+        <div class="page-head">
+          <div>
+            <h1>ENGAGE Studio</h1>
+            <p>Inspect real PostgreSQL tables, measure student demand, and explore courses ranked by live engagement.</p>
+          </div>
+        </div>
+
+        <div class="studio-hero">
+          <div>
+            <span class="eyebrow">ENGAGE DATABASE STUDIO</span>
+            <h2>PostgreSQL data + course intelligence</h2>
+            <p>Find prospective students by stated exam goals and budgets, compare trending learning topics, and discover affordable courses—all from the same live database.</p>
+          </div>
+          <div class="studio-pills">
+            <span>PostgreSQL Tables</span>
+            <span>Course Demand</span>
+            <span>Discovery</span>
+          </div>
+        </div>
+
+        <div class="studio-split">
+          <section class="studio-pane studio-table-pane">
+            <div class="studio-pane-head">
+              <div>
+                <span class="pane-kicker">LEFT SIDE</span>
+                <h3>PostgreSQL Tables</h3>
+                <p>Choose a table or view and inspect the records currently used by ENGAGE.</p>
+              </div>
+              <span class="engine-badge postgres-badge">PostgreSQL</span>
+            </div>
+
+            <label class="studio-field-label" for="postgresTableSelect">Table / View</label>
+            <select id="postgresTableSelect" class="studio-select">
+              <optgroup label="PPT / ER tables">
+                <option value="engage_user">engage_user</option>
+                <option value="following">following</option>
+                <option value="post">post</option>
+                <option value="likes">likes</option>
+                <option value="saved">saved</option>
+                <option value="reposts">reposts</option>
+                <option value="post_shares">post_shares</option>
+                <option value="post_hashtag">post_hashtag</option>
+                <option value="hashtag">hashtag</option>
+                <option value="comment_hashtag">comment_hashtag</option>
+                <option value="comments">comments</option>
+                <option value="comment_likes">comment_likes</option>
+                <option value="reach">reach</option>
+              </optgroup>
+              <optgroup label="Student intelligence">
+                <option value="student_profile">student_profile</option>
+                <option value="post_learning_signal">post_learning_signal</option>
+                <option value="learning_resource">learning_resource</option>
+                <option value="resource_recommendation">resource_recommendation</option>
+                <option value="post_view_event">post_view_event</option>
+              </optgroup>
+              <optgroup label="Views">
+                <option value="user_preference_summary">user_preference_summary</option>
+                <option value="engagement_quality">engagement_quality</option>
+                <option value="creator_summary">creator_summary</option>
+                <option value="student_topic_scores">student_topic_scores</option>
+                <option value="student_resource_matches">student_resource_matches</option>
+                <option value="student_recommendation_explainer">student_recommendation_explainer</option>
+                <option value="course_post_engagement">course_post_engagement</option>
+                <option value="course_goal_trending">course_goal_trending</option>
+                <option value="course_resource_trending">course_resource_trending</option>
+              </optgroup>
+              <optgroup label="Application support">
+                <option value="recommendations">recommendations</option>
+                <option value="user_preferences">user_preferences</option>
+                <option value="direct_messages">direct_messages</option>
+                <option value="stories">stories</option>
+                <option value="search_history">search_history</option>
+                <option value="app_events">app_events</option>
+              </optgroup>
+            </select>
+
+            <div class="pane-toolbar">
+              <button class="soft-btn" id="refreshPostgresTable">Refresh table</button>
+              <span class="console-status">Shows up to 100 rows</span>
+            </div>
+            <div id="postgresTableData" class="studio-table-result">
+              <div class="sql-message">Loading PostgreSQL table...</div>
+            </div>
+          </section>
+
+          <section class="studio-pane course-pane" aria-label="Course demand and trending dashboard">
+            <div class="studio-pane-head">
+              <div>
+                <span class="pane-kicker">LIVE STUDENT INSIGHTS · POSTGRESQL</span>
+                <h3>Course Demand & Trends</h3>
+                <p>Find your course audience, measure affordability, and explore ranked learning options.</p>
+              </div>
+              <span class="engine-badge course-badge"><span class="live-dot"></span> LIVE DATA</span>
+            </div>
+
+            <form id="courseDemandForm" class="course-demand-form">
+              <label class="course-input-label" for="courseSearch">Search course name / exam goal</label>
+              <input type="search" id="courseSearch" class="course-input" placeholder="Try JEE, Physics, NEET, GATE…" list="courseGoalHints" autocomplete="off" required maxlength="120" value="JEE">
+              <datalist id="courseGoalHints"></datalist>
+              <label class="course-input-label" for="courseBudget">Minimum student budget (₹ / month)</label>
+              <div class="course-search-actions">
+                <input type="number" class="course-input" id="courseBudget" min="0" max="9999999999" step="1" value="2000" required>
+                <button class="primary-btn course-submit" id="courseDemandButton" type="submit">Analyze Demand</button>
+              </div>
+            </form>
+
+            <div id="courseDemandStatus" class="course-status" role="status" aria-live="polite">Search an exam or course to see live counts from student profiles.</div>
+            <div id="courseDemandResults" class="course-demand-results">
+              <div class="course-empty">Students, demand share and budget-qualified matches will appear here.</div>
+            </div>
+
+            <div class="course-tool-row">
+              <button type="button" class="course-tool-btn" id="findTrendingBtn">↗ Explore trending</button>
+              <button type="button" class="course-tool-btn course-secondary-btn" id="findCourseBtn">⌕ Discover courses</button>
+            </div>
+
+            <section id="courseTrendingPanel" class="course-result-panel hidden" aria-label="Trending courses">
+              <div class="course-panel-header"><div><h4>Trending leaderboard</h4><p>Ranked by weighted likes, shares, comments, saves and reposts.</p></div><button type="button" class="course-close" data-course-close="courseTrendingPanel" aria-label="Close trending panel">×</button></div>
+              <div class="course-score-legend"><span>♥ Like +1</span><span>↗ Share +2</span><span>◯ Comment +4</span><span>▣ Save +3</span><span>↻ Repost +5</span></div>
+              <div class="course-discovery-filters">
+                <label>Course / exam <select id="trendingGoalFilter" class="course-input"><option value="all">All courses</option></select></label>
+                <label>Sort by <select id="trendingSort" class="course-input">
+                  <option value="score">Highest engagement</option><option value="likes">Most likes</option>
+                  <option value="comments">Most comments</option><option value="saves">Most saves</option>
+                  <option value="priceLow">Price: low to high</option><option value="priceHigh">Price: high to low</option>
+                </select></label>
+              </div>
+              <div id="courseTrendingResults" class="course-results-list"></div>
+            </section>
+
+            <section id="courseFinderPanel" class="course-result-panel hidden" aria-label="Find courses within a student budget">
+              <div class="course-panel-header"><div><h4>Find an affordable course</h4><p>Uses the monthly budget saved in a selected student profile.</p></div><button type="button" class="course-close" data-course-close="courseFinderPanel" aria-label="Close course finder">×</button></div>
+              <form id="courseFinderForm" class="course-finder-form">
+                <label class="course-input-label" for="findCourseSearch">Course name or topic</label>
+                <input type="search" class="course-input" id="findCourseSearch" maxlength="120" placeholder="Enter JEE, mock test, physics…" required>
+                <label class="course-input-label" for="courseProfileSelect">Student profile (sets max affordable cost)</label>
+                <select id="courseProfileSelect" class="course-input" required><option value="">Loading student profiles…</option></select>
+                <label class="course-input-label" for="courseFinderSort">Sort results</label>
+                <select id="courseFinderSort" class="course-input"><option value="trending">Most trending first</option><option value="price_asc">Lowest price first</option><option value="price_desc">Highest price first</option><option value="quality">Best quality first</option></select>
+                <label class="course-input-label" for="courseFinderMode">Delivery mode</label>
+                <select id="courseFinderMode" class="course-input"><option value="all">All formats</option><option value="online">Online</option><option value="offline">Offline</option><option value="hybrid">Hybrid</option></select>
+                <button type="submit" class="primary-btn">Find affordable courses</button>
+              </form>
+              <div id="courseFinderResults" class="course-results-list"></div>
+            </section>
+            <p class="course-disclaimer">Audience counts are based on students' self-reported goals and monthly budgets. A qualified student is <strong>not</strong> a confirmed enrollment. Trending reflects tagged topic engagement, not direct reactions to each provider.</p>
+          </section>
+        </div>
+      </section></section>
+</main>
+  </div>
+
+  <nav class="mobile-nav">
+    <button class="active" data-nav="home">⌂</button>
+    <button data-nav="explore">⌕</button>
+    <button data-action="open-create">＋</button>
+    <button data-nav="analytics">▥</button>
+    <button data-nav="profile">◎</button>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+
+  <div class="modal-backdrop hidden" id="createModal">
+    <div class="modal">
+      <div class="modal-head"><h2>Create new post</h2><button data-action="close-create">×</button></div>
+      <div class="create-preview" id="createPreview"><span>Share something with ENGAGE DB</span></div>
+      <form id="createPostForm">
+        <textarea name="caption" id="createCaption" maxlength="500" placeholder="Write a caption... Use #hashtags too." required></textarea>
+        <label class="upload-label">Photo
+          <input type="file" id="postImageFile" accept="image/*">
+        </label>
+        <div id="uploadStatus" class="console-status"></div>
+        <div class="two-col">
+          <label>Genre
+            <select name="genre">
+              <option>technology</option><option>education</option><option>analytics</option>
+              <option>lifestyle</option><option>competition</option><option>general</option>
+            </select>
+          </label>
+          <label>Location<input name="location" value="VIT Chennai"></label>
+        </div>
+        <button class="primary-btn" type="submit">Share post</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="commentsModal">
+    <div class="modal comments-modal">
+      <div class="modal-head"><h2>Comments</h2><button data-action="close-comments">×</button></div>
+      <div id="commentsList" class="comments-list"></div>
+      <form id="commentForm" class="comment-form">
+        <input id="commentInput" placeholder="Add a comment..." autocomplete="off">
+        <button type="submit">Post</button>
+      </form>
+    </div>
+  </div>
+
+
+<div class="modal-backdrop hidden" id="storyCreateModal">
+  <div class="modal">
+    <div class="modal-head"><h2>Create story</h2><button data-action="close-story-create">×</button></div>
+    <div class="create-preview" id="storyCreatePreview"><span>Story preview</span></div>
+    <form id="createStoryForm">
+      <textarea id="storyCaption" maxlength="500" placeholder="Add a story caption..."></textarea>
+      <label class="upload-label">Story image
+        <input type="file" id="storyImageFile" accept="image/*">
+      </label>
+      <div id="storyUploadStatus" class="console-status"></div>
+      <button class="primary-btn" type="submit">Share story</button>
+    </form>
+  </div>
+</div>
+
+  <div class="modal-backdrop hidden" id="storyModal">
+    <div class="story-view">
+      <button class="story-close" data-action="close-story">×</button>
+      <div id="storyContent"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+  <script src="/static/course_studio.js"></script>
+</body>
+</html>

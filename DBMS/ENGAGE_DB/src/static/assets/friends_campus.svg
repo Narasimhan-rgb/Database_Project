@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fdcb6e"/><stop offset="100%" stop-color="#e17055"/></linearGradient><filter id="b"><feGaussianBlur stdDeviation="55"/></filter></defs>
+<rect width="1080" height="1080" fill="#0b0b0f"/><circle cx="240" cy="250" r="260" fill="#fdcb6e" opacity=".58" filter="url(#b)"/><circle cx="820" cy="760" r="330" fill="#e17055" opacity=".52" filter="url(#b)"/>
+<rect x="90" y="90" width="900" height="900" rx="70" fill="url(#g)" opacity=".24"/><g fill="none" stroke="white" stroke-opacity=".42"><path d="M170 710 C330 560 470 810 620 610 S900 470 930 650" stroke-width="18"/><circle cx="320" cy="390" r="95" stroke-width="14"/><rect x="620" y="290" width="220" height="220" rx="30" stroke-width="14"/></g>
+<text x="120" y="885" font-family="Arial,sans-serif" font-size="64" fill="white" font-weight="700">Campus crew</text><text x="120" y="945" font-family="Arial,sans-serif" font-size="34" fill="white" opacity=".78">After class</text></svg>

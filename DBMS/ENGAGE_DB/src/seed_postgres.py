@@ -1,0 +1,5 @@
+# Compatibility entry point for older ENGAGE commands.
+from seed import main
+
+if __name__ == "__main__":
+    main()

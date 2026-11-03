@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ENGAGE · Student Intelligence Query Lab</title>
+  <link rel="stylesheet" href="{{ url_for('query_lab.static', filename='query_lab.css') }}">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">Engage</div>
+  <a class="nav" href="/">⌂ <span>Home</span></a>
+  <a class="nav active" href="/query-lab">▤ <span>DB Query Lab</span></a>
+  <div class="side-note"><div class="dot"></div><span id="pgState">Checking PostgreSQL…</span></div>
+  <div class="side-note muted" id="oracleState">Oracle mirror optional · not checked</div>
+</aside>
+<main>
+  <header class="hero">
+    <div>
+      <div class="eyebrow">ENGAGE · STUDENT OPPORTUNITY INTELLIGENCE · LIVE DBMS DEMONSTRATION</div>
+      <h1>ENGAGE Query Lab</h1>
+      <p>This is not limited to two fixed queries per person. Your whole team can run joins, subqueries, aggregates, views, DML and faculty-requested SQL against the same live application database.</p>
+    </div>
+    <button id="liveLikeBtn" class="live-btn">♥ Toggle Narasimhan Like</button>
+  </header>
+
+  <section class="live-strip">
+    <div><strong>Real-time full-stack proof: feed → signal → recommendation</strong><span>Toggle a like, then query <code>likes</code>, <code>student_topic_scores</code> or <code>student_recommendation_explainer</code> to show how application behavior changes the database-backed recommendation evidence.</span></div>
+    <div class="live-result" id="liveResult">Ready</div>
+  </section>
+
+  <section class="team-grid">
+    {% for member in team_members %}
+      <div class="member-card"><span>Team member {{ loop.index }}</span><strong>{{ member }}</strong><small>Can execute any SQL demo query</small></div>
+    {% endfor %}
+  </section>
+
+  <section class="console-card">
+    <div class="query-head">
+      <div><div class="member-tag">PPT ER MODEL</div><h2>12 Core PostgreSQL Tables</h2><p>These are the relational tables corresponding to your ENGAGE ER diagram.</p></div>
+      <div class="concept">POSTGRESQL</div>
+    </div>
+    <div class="team-grid">
+      {% for t in core_tables %}<button class="member-card table-btn" data-table="{{ t }}"><strong>{{ t }}</strong><small>Open table</small></button>{% endfor %}
+    </div>
+    <div class="result-wrap" id="tableResult"><div class="empty">Choose a table to inspect its live rows.</div></div>
+  </section>
+
+  <section class="queries">
+    {% for q in query_library %}
+    <article class="query-card">
+      <div class="query-head"><div><div class="member-tag">SUGGESTED DEMO QUERY</div><h2>{{ q.title }}</h2><p>{{ q.why }}</p></div><div class="concept">{{ q.concept }}</div></div>
+      <pre><code>{{ q.sql }}</code></pre>
+      <div class="actions"><button class="run-btn sql-run" data-query="{{ q.id }}">▶ Run SQL</button><span class="status" id="status-{{ q.id }}">Not run yet</span></div>
+      <div class="result-wrap" id="result-{{ q.id }}"><div class="empty">Run this against the live PostgreSQL application database.</div></div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <section class="console-card">
+    <div class="query-head"><div><div class="member-tag">VIVA / FACULTY MODE</div><h2>Custom SQL Console</h2><p>Run your own query against PostgreSQL or the optional Oracle mirror. Destructive schema commands are blocked.</p></div><div class="concept">LIVE SQL</div></div>
+    <div class="actions"><label>Database <select id="customEngine"><option value="postgres">PostgreSQL</option><option value="oracle">Oracle</option></select></label></div>
+    <textarea id="customSql">SELECT * FROM student_recommendation_explainer WHERE user_id='U007' ORDER BY recommendation_rank;</textarea>
+    <div class="actions"><button id="runCustom" class="run-btn">▶ Run SQL</button><span id="customStatus" class="status">Ready</span></div>
+    <div class="result-wrap" id="customResult"><div class="empty">SQL results appear here.</div></div>
+  </section>
+</main>
+<script>
+const esc=v=>String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
+function table(target,d){if(!d.ok){target.innerHTML=`<div class="error">${esc(d.error)}</div>`;return;}if(!d.columns?.length){target.innerHTML=`<div class="empty">Executed successfully · ${d.row_count??0} affected row(s).</div>`;return;}const h=d.columns.map(c=>`<th>${esc(c)}</th>`).join('');const b=(d.rows||[]).map(r=>`<tr>${d.columns.map(c=>`<td>${esc(typeof r[c]==='object'&&r[c]!==null?JSON.stringify(r[c]):r[c])}</td>`).join('')}</tr>`).join('');target.innerHTML=`<div class="result-meta">${d.row_count} row(s) · ${d.elapsed_ms} ms · ${esc(d.engine||'PostgreSQL')}</div><div class="table-scroll"><table><thead><tr>${h}</tr></thead><tbody>${b}</tbody></table></div>`;}
+async function health(){try{const r=await fetch('/query-lab/api/health');const d=await r.json();const e=document.getElementById('pgState');e.textContent=d.ok?`PostgreSQL connected · ${d.postgres.database}`:'PostgreSQL disconnected';if(d.ok)e.parentElement.classList.add('ok')}catch{} try{const r=await fetch('/query-lab/api/oracle-health');const d=await r.json();document.getElementById('oracleState').textContent=d.ok?`Oracle connected · ${d.oracle.database} · ${d.oracle.db_user}`:'Oracle mirror optional · configure ORACLE_* in .env';}catch{}}
+document.querySelectorAll('.sql-run').forEach(b=>b.onclick=async()=>{const id=b.dataset.query,s=document.getElementById('status-'+id),t=document.getElementById('result-'+id);s.textContent='Executing…';const r=await fetch('/query-lab/api/run/'+id,{method:'POST'});const d=await r.json();table(t,d);s.textContent=d.ok?'Executed':'Failed'});
+document.querySelectorAll('.table-btn').forEach(b=>b.onclick=async()=>{const r=await fetch('/query-lab/api/table/'+encodeURIComponent(b.dataset.table));const d=await r.json();table(document.getElementById('tableResult'),d)});
+document.getElementById('liveLikeBtn').onclick=async()=>{const o=document.getElementById('liveResult');o.textContent='Updating…';const r=await fetch('/query-lab/api/toggle-like',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({post_id:'P001',user_id:'U007'})});const d=await r.json();o.textContent=d.ok?`${d.action}: U007 → P001 · ${d.like_count} likes`:d.error};
+document.getElementById('runCustom').onclick=async()=>{const engine=document.getElementById('customEngine').value;const url=engine==='oracle'?'/query-lab/api/custom-oracle':'/query-lab/api/custom-select';const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sql:document.getElementById('customSql').value})});const d=await r.json();table(document.getElementById('customResult'),d);document.getElementById('customStatus').textContent=d.ok?`Executed on ${d.engine||engine}`:'Failed'};
+health();
+</script>
+</body></html>
