@@ -28,27 +28,18 @@ The above is an **equal contribution/presentation plan**: confirm with all membe
 
 Additional features include learning-profile updates, recommendations, engagement/trending summaries, messages, stories and database query demos. Application routes exist in the provided code; **live end-to-end tests and database screenshots must still be captured by the team**.
 
-## Project screenshots — embedded directly, not external image links
+## Implemented features — project summary
 
-The following screenshots are reserved for Skandhan's separate contribution. When those files are committed, they will display inline here. These two **actual screenshots supplied by the team** show the budget input changing from ₹20 to ₹20,00,000. Resource ranking scores change; the separate study-post list remains similar because it uses engagement signals. They are **not** substitutes for live CRUD/database verification.
+ENGAGE DB provides a database-backed educational social platform with the following workflows:
 
-**Screenshot 1: Learning profile with monthly budget ₹20**
+- **Create posts:** Students publish learning-related content through the Flask application.
+- **Like, save, and comment:** User interactions are recorded in related PostgreSQL tables.
+- **Follow users:** The system stores follower–following relationships.
+- **Learning profiles:** Students select an exam goal, monthly budget, and preferred study mode.
+- **Explainable recommendations:** Learning opportunities are scored for goal relevance, interests, affordability, mode, and quality.
+- **Engagement analytics:** SQL joins, aggregates, and subqueries analyze posts, likes, saves, comments, and hashtags.
 
-![Actual ENGAGE learning profile: budget 20](screenshots/learning_profile_budget_20.png)
-
-**Screenshot 2: Learning profile with monthly budget ₹20,00,000**
-
-![Actual ENGAGE learning profile: budget 2000000](screenshots/learning_profile_budget_2000000.png)
-
-**System architecture (generated from reviewed source code)**
-
-![Flask PostgreSQL Oracle architecture diagram](docs/system_architecture.png)
-
-**Relational ER diagram (12 core tables; derived from schema)**
-
-![Core twelve-table relational ER diagram](docs/Relationschema.jpeg)
-
-**More screenshots still required:** Live homepage, create/like/save/comment/follow before-and-after, PostgreSQL table inspection, Oracle query output, constraints, profile save and app health. Capture instructions and filenames: `screenshots/CAPTURE_CHECKLIST.md`. Add new images here in the form `![Description](screenshots/FILENAME.png)` once genuinely captured. No screenshots are fabricated.
+Application screenshots and ER-design images can be included here after the corresponding files have been added to the repository by their contributors.
 
 ## Technology and DBMS versions
 
@@ -132,8 +123,3 @@ For student-interest scoring, the PostgreSQL view combines **like ×1 + save ×4
 - **Video demo (3–5 minutes, all three members shown):** https://youtu.be/8axdOZ_n8Vw.
 - **GitHub repository:** https://github.com/Narasimhan-rgb/Database_Project/tree/main/DBMS/ENGAGE_DB.
 - **Submission sheet:** `submission/BACSE202_ENGAGE_DB_Submission.docx`.
-
-**Before publishing:** follow `GITHUB_PREUPLOAD_REVIEW.md`.
-
-
-> **Staged repository upload:** The database, ER/design files, presentation, and screenshot assets are reserved for Vishwa and Skandhan's separate contributions. Until they upload them, some relative links and images above will not resolve. The technical report PDF was not present in the uploaded ENGAGE_DB.zip and must be added separately before submission.
